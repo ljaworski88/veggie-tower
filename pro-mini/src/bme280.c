@@ -181,7 +181,7 @@ int bme280_read(int16_t *temperature, uint16_t *humidity, uint32_t *pressure)
 
     /* Compensate using datasheet formulas — order matters, temp must go first
      * as it sets t_fine which pressure and humidity compensation depend on */
-    int32_t temp = bme280_compensate_temp(adc_P);
+    int32_t temp = bme280_compensate_temp(adc_T);
     *temperature = (int16_t)(temp / 10);        /* convert 0.01C to 0.1C scaling */
     *pressure    = bme280_compensate_pressure(adc_P) >> 8;  /* convert to whole Pascals */
     *humidity    = (uint16_t)(bme280_compensate_humidity(adc_H) * 10 / 1024); /* convert to 0.1% scaling */
