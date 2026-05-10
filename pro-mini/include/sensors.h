@@ -8,6 +8,7 @@ struct zone_sensor_data {
     uint16_t co2_ppm;
     int16_t  temperature_c;     /* scaled x10, e.g. 215 = 21.5C */
     uint16_t humidity_pct;      /* scaled x10, e.g. 654 = 65.4% */
+    uint32_t pressure_pa;       /* pressure in Pascals */
 };
 
 int sensors_init(void);
