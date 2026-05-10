@@ -1,15 +1,19 @@
 #include <avr/io.h>
 #include "sensors.h"
 #include "uart.h"
+#include "bme280.h"
 
 static struct zone_sensor_data sensor_data;
 
 int sensors_init(void)
 {
     /* Configure ADC for soil moisture sensors */
-    ADMUX  = (1 << REFS0);                          /* AVcc reference */
-    ADCSRA = (1 << ADEN)                            /* enable ADC */
+    ADMUX  = (1 << REFS0);                               /* AVcc reference */
+    ADCSRA = (1 << ADEN)                                 /* enable ADC */
            | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); /* prescaler 128 */
+
+    /* Initialize BME280 via SPI */
+    bme280_init();
 
     return 0;
 }
@@ -32,7 +36,10 @@ int sensors_update(void)
     /* Read CO2 from MH-Z19 via UART */
     uart_read_co2(&sensor_data.co2_ppm);
 
-    /* TODO: read DHT22 temperature and humidity */
+    /* Read temperature, humidity, and pressure from BME280 via SPI */
+    bme280_read(&sensor_data.temperature_c,
+                &sensor_data.humidity_pct,
+                &sensor_data.pressure_pa);
 
     return 0;
 }

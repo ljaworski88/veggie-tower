@@ -22,6 +22,7 @@ add_executable(${PROJECT_NAME}
     src/uart.c
     src/sensors.c
     src/actuators.c
+    src/bme280.c
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
