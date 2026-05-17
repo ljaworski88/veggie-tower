@@ -6,21 +6,26 @@
 #include "uart.h"
 #include "sensors.h"
 #include "actuators.h"
+#include "adc.h"
 
-int main(void)
-{
+int main(void) {
+    uint16_t adc_result;
     /* Initialize all subsystems */
     uart_init();
-    sensors_init();
-    actuators_init();
-    i2c_peripheral_init();
+    adc_init();
+    //sensors_init();
+    //actuators_init();
+    //i2c_peripheral_init();
 
     /* Enable global interrupts (required for I2C peripheral) */
     sei();
 
     while (1) {
         /* Update sensor readings */
-        sensors_update();
+        //sensors_update();
+
+        adc_result = adc_read(0);
+        send_adc_result(adc_result);
 
         /* I2C communication is interrupt driven —
          * main loop just keeps sensor data fresh
