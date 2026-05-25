@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.20.5)
 
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/avr-toolchain.cmake)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(veggie-tower-zone C)
 
 # MCU settings
 set(MCU atmega328p)
-set(F_CPU 16000000UL)
+set(F_CPU 8000000UL)
 
 # Zone I2C address — pass at build time:
 # cmake -DZONE_ADDR=0x10 ..
@@ -14,7 +15,7 @@ if(NOT DEFINED ZONE_ADDR)
     message(FATAL_ERROR "ZONE_ADDR must be defined. Pass -DZONE_ADDR=0x10 (zone 1), 0x11 (zone 2), or 0x12 (zone 3)")
 endif()
 
-set(CMAKE_C_FLAGS "-mmcu=${MCU} -DF_CPU=${F_CPU} -DZONE_ADDR=${ZONE_ADDR} -Os -Wall -Wextra -std=gnu99")
+set(CMAKE_C_FLAGS "-mmcu=${MCU} -DF_CPU=${F_CPU} -DZONE_ADDR=${ZONE_ADDR} -O2 -Wall -Wextra -std=gnu99")
 
 add_executable(${PROJECT_NAME}
     src/main.c
@@ -24,6 +25,7 @@ add_executable(${PROJECT_NAME}
     src/actuators.c
     src/bme280.c
     src/adc.c
+    src/spi.c
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)

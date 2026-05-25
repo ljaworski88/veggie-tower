@@ -93,13 +93,13 @@
 #define DIG_H5_MSB 0xE6
 #define DIG_H6 0xE7
 
-struct dig_t{
+struct dig_t {
     uint16_t T1;
     int16_t T2;
     int16_t T3;
 };
 
-struct dig_p{
+struct dig_p {
     uint16_t P1;
     int16_t P2;
     int16_t P3;
@@ -111,7 +111,7 @@ struct dig_p{
     int16_t P9;
 };
 
-struct dig_h{
+struct dig_h {
     uint8_t H1;
     int16_t H2;
     uint8_t H3;
@@ -120,14 +120,19 @@ struct dig_h{
     int8_t H6;
 };
 
-struct bme280_calib{
+struct bme280_calib {
     struct dig_t temp;
     struct dig_p press;
     struct dig_h hum;
 };
 
-int bme280_init();
-int bme280_read();
-int bme280_self_test(void);
+struct bme280_data {
+    int32_t temperature;
+    uint32_t pressure;
+    uint32_t humidity;
+};
+
+uint8_t bme280_init();
+uint8_t bme280_read(struct bme280_data *data);
 
 #endif

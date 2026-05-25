@@ -1,0 +1,14 @@
+CompileFlags:
+    Add:
+      - --target=avr
+      - -mmcu=atmega328p
+      - -DF_CPU=8000000UL
+      - -DZONE_ADDR=0x10
+      - -I/usr/avr/include
+    Remove:
+      - -mmcu=.*
+      - -mrelax
+      - -fno-jump-tables
+
+Diagnostics:
+    UnusedIncludes: Strict

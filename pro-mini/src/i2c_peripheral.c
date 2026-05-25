@@ -1,12 +1,12 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
 #include "i2c_peripheral.h"
+#include "actuators.h"
 #include "config.h"
 #include "sensors.h"
-#include "actuators.h"
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <stdint.h>
 
-int i2c_peripheral_init(void)
-{
+uint8_t i2c_peripheral_init(void) {
     /* Set I2C address */
     TWAR = (ZONE_ADDR << 1);
 
@@ -16,8 +16,7 @@ int i2c_peripheral_init(void)
     return 0;
 }
 
-ISR(TWI_vect)
-{
+ISR(TWI_vect) {
     /* TODO: handle I2C commands from Pico W:
      * CMD_GET_SENSORS  — respond with sensor data struct
      * CMD_SET_VALVE    — open/close specified valve
