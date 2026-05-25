@@ -1,6 +1,9 @@
+
 pico/build/
-pro-mini/build/
 pico/credentials.conf
+
+pro-mini/compile_commands.json
+pro-mini/build/
 
 docs/Arduino_Pro_Mini_Pinout_Diagram.pdf
 docs/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf

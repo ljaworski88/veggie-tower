@@ -3,9 +3,9 @@
 
 #include <stdint.h>
 
-int actuators_init(void);
-int actuators_set_valve(uint8_t valve, uint8_t state);
-int actuators_set_fan(uint8_t duty_cycle);
-int actuators_set_lights(uint8_t duty_cycle);
+uint8_t actuators_init(void);
+uint8_t actuators_set_valve(uint8_t valve, uint8_t state);
+uint8_t actuators_set_fan(uint8_t duty_cycle);
+uint8_t actuators_set_lights(uint8_t duty_cycle);
 
 #endif /* ACTUATORS_H */
